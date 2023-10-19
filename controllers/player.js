@@ -63,8 +63,7 @@ const postPlayersData = async(req,res)=>{
        }
    }
    
-
-// // UPDATE DATA BY ID
+// UPDATE DATA BY ID
 const updatePlayersDataByID = async (req, res) => {
   const _id = req.params.id;
   const body = req.body;

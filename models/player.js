@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var validator = require("email-validator");
 
 const commonFields = (dataType,isRequired,isUnique) => ({
      type: dataType,
@@ -10,11 +11,23 @@ const cricketPlayerSchema = new mongoose.Schema({
   "personalInformation": {
     username: commonFields(String,true,true),
     fullName: commonFields(String,true,true),
+    emailAddress: {
+      type: String,
+      required: true,
+      unique: false,
+      validate: {
+        validator: (value) => {
+          return validator.validate(value);
+        },
+        message: 'Invalid email address',
+      },
+    },
     dateOfBirth: commonFields(Date,true,false),
     profilePicture: commonFields(String,false,false),
     bio: commonFields(String,true,false),
     phoneNumber: commonFields(String,true,true),
     address: commonFields(String,true,false),
+    gender: commonFields(String,true,false),
     town: commonFields(String,true,false),
     city: commonFields(String,true,false),
     country: commonFields(String,true,false)
