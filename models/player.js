@@ -9,8 +9,7 @@ const commonFields = (dataType,isRequired,isUnique) => ({
 
 const cricketPlayerSchema = new mongoose.Schema({
   "personalInformation": {
-    username: commonFields(String,false,true),
-    fullName: commonFields(String,true,true),
+    fullName: commonFields(String,true,false),
     emailAddress: {
       type: String,
       required: true,
