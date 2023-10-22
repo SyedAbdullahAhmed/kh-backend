@@ -9,7 +9,7 @@ const commonFields = (dataType,isRequired,isUnique) => ({
 
 const cricketPlayerSchema = new mongoose.Schema({
   "personalInformation": {
-    username: commonFields(String,true,true),
+    username: commonFields(String,false,true),
     fullName: commonFields(String,true,true),
     emailAddress: {
       type: String,
@@ -24,13 +24,13 @@ const cricketPlayerSchema = new mongoose.Schema({
     },
     dateOfBirth: commonFields(Date,true,false),
     profilePicture: commonFields(String,false,false),
-    bio: commonFields(String,true,false),
+    bio: commonFields(String,false,false),
     phoneNumber: commonFields(String,true,true),
-    address: commonFields(String,true,false),
+    address: commonFields(String,false,false),
     gender: commonFields(String,true,false),
-    town: commonFields(String,true,false),
-    city: commonFields(String,true,false),
-    country: commonFields(String,true,false)
+    town: commonFields(String,true,true),
+    city: commonFields(String,false,false),
+    country: commonFields(String,false,false)
   },
   "cricketDetails": {
     playingRole:commonFields(String,true,false),

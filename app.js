@@ -13,9 +13,11 @@ app.use(express.json());
 const signup = require('./routes/signup')
 const players = require('./routes/player')
 const otp = require('./routes/otp')
+const teams = require('./routes/teams')
 app.use(signup)
 app.use(players)
 app.use(otp)
+app.use(teams)
 
 
 app.get('/', (req, res) => {
@@ -25,5 +27,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}...`)
 })
-
 
