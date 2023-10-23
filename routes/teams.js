@@ -1,5 +1,5 @@
 const express = require('express');
-const {getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID} = require('../controllers/teams')
+const {getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID,addPlayerInTeamByID} = require('../controllers/teams')
 
 const router = express.Router();
 
@@ -8,6 +8,9 @@ router.get('/teams',getTeamsData)
 
 // get team data by id
 router.get('/teams/:id',getTeamsDataByID)
+
+// add player in team by id
+router.post('/teams/players/:id',addPlayerInTeamByID)
 
 // post teams
 router.post('/teams',postTeamsData)

@@ -13,10 +13,10 @@ const cricketTeamSchema = new mongoose.Schema({
           logo: commonFields(String, true, true),
           captain: commonFields(String, true, false),
           description: commonFields(String, true, false),
-          Achievements: [String],
+          achievements: [String],
           players: [mongoose.Schema.Types.Mixed]
      },
-     "Team Statistics": {
+     "teamStatistics": {
           totalMatchesPlayed: { type: Number, default: 0, required: true },
           totalWins: { type: Number, default: 0, required: true },
           totalLosses: { type: Number, default: 0, required: true },
