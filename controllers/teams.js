@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const CricketTeams = require('../models/teams')
 const CricketPlayers = require('../models/player')
 
-// GET PLAYERS DATA
+// GET TEAMS DATA
 const getTeamsData = async(req,res)=>{
     try {
      //find data
@@ -14,7 +14,7 @@ const getTeamsData = async(req,res)=>{
     }
   }
 
-// GET DATA BY ID
+// GET TEAM DATA BY ID
 const getTeamsDataByID = async(req,res)=>{
      let _id = req.params.id;
     try {
@@ -29,20 +29,8 @@ const getTeamsDataByID = async(req,res)=>{
     }
 }
 
-
-
-//POST DATA
+//POST TEAMS
 const postTeamsData = async(req,res)=>{
-     
-     // CricketPlayers.estimatedDocumentCount({}).exec().then(count => {
-     //      if(count >= 12){
-     //           return res.send({message : "No more place"})
-     //      }
-     //      else{
-     //           return res.send({message : "place"})
-     //      }
-     //    });
-        
        let body = req.body
        console.log(body);
        let doc = new CricketTeams(body)
@@ -55,7 +43,8 @@ const postTeamsData = async(req,res)=>{
          res.status(500).send('Internal Server Error');
        }
    }
-//POST DATA
+
+// ADD PLAYER IN A TEAM BY ID
 const addPlayerInTeamByID = async(req,res)=>{
      try{
           const playerID = req.body.id;
@@ -83,7 +72,7 @@ const addPlayerInTeamByID = async(req,res)=>{
      }
    }
    
-// UPDATE DATA BY ID
+// UPDATE TEAMS BY ID
 const updateTeamsDataByID = async (req, res) => {
   const _id = req.params.id;
   const body = req.body;
@@ -101,7 +90,7 @@ const updateTeamsDataByID = async (req, res) => {
   }
 };
 
-// DELETE DATA BY ID
+// DELETE TEAM BY ID
 const deleteTeamsDataByID = async(req,res)=>{
   const _id = req.params.id
     try {
