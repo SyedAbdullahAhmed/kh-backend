@@ -24,10 +24,20 @@ const cricketPlayerSchema = new mongoose.Schema({
     dateOfBirth: commonFields(Date,true,false),
     profilePicture: commonFields(String,false,false),
     bio: commonFields(String,false,false),
-    phoneNumber: commonFields(String,true,true),
+    phoneNumber: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: function (value) {
+          return value.length === 11;
+        },
+        message: 'Phone number must be a 11-digit number without spaces or special characters.'
+      }
+    },
     address: commonFields(String,false,false),
     gender: commonFields(String,true,false),
-    town: commonFields(String,true,true),
+    town: commonFields(String,true,false),
     city: commonFields(String,false,false),
     country: commonFields(String,false,false)
   },
@@ -41,26 +51,26 @@ const cricketPlayerSchema = new mongoose.Schema({
     },
   },
   "statistics": {
-    totalInnings: { type: Number, default: 0 ,required : true},
-    totalMatches: { type: Number, default: 0 ,required : true},
+    totalInnings: { type: Number, default: 0 ,required : false},
+    totalMatches: { type: Number, default: 0 ,required : false},
     matches: {
-      wons: { type: Number, default: 0 ,required : true},
-      lose: { type: Number, default: 0 ,required : true},
-      draws: { type: Number, default: 0 ,required : true},
+      wons: { type: Number, default: 0 ,required : false},
+      lose: { type: Number, default: 0 ,required : false},
+      draws: { type: Number, default: 0 ,required : false},
     },
     batting: {
-      innings : { type: Number, default: 0 ,required : true},
-      totalRunsScored: { type: Number, default: 0 ,required : true},
-      thirties: { type: Number, default: 0 ,required : true},
-      fifties: { type: Number, default: 0 ,required : true},
-      centuries: { type: Number, default: 0 ,required : true},
-      fours: { type: Number, default: 0 ,required : true},
-      sixes: { type: Number, default: 0 ,required : true},
-      battingAverage: { type: Number, default: 0 ,required : true},
-      bestBattingFigures: { type: Number, default: 0 ,required : true},
-      strikeRate: { type: Number, default: 0 ,required : true},
-      average: { type: Number, default: 0 ,required : true},
-      ducks: { type: Number, default: 0 ,required : true},
+      innings : { type: Number, default: 0 ,required : false},
+      totalRunsScored: { type: Number, default: 0 ,required : false},
+      thirties: { type: Number, default: 0 ,required : false},
+      fifties: { type: Number, default: 0 ,required : false},
+      centuries: { type: Number, default: 0 ,required : false},
+      fours: { type: Number, default: 0 ,required : false},
+      sixes: { type: Number, default: 0 ,required : false},
+      battingAverage: { type: Number, default: 0 ,required : false},
+      bestBattingFigures: { type: Number, default: 0 ,required : false},
+      strikeRate: { type: Number, default: 0 ,required : false},
+      average: { type: Number, default: 0 ,required : false},
+      ducks: { type: Number, default: 0 ,required : false},
     },
     bowling: {
       innings : { type: Number, default: 0 ,required : true},
@@ -78,10 +88,10 @@ const cricketPlayerSchema = new mongoose.Schema({
       bestFigures: { type: String, default: 0 ,required : true},
     },
     fielding: {
-      catches: { type: Number, default: 0 ,required : true},
-      runout: { type: Number, default: 0 ,required : true},
-      stumping: { type: Number, default: 0 ,required : true},
-      assistedRunout: { type: Number, default: 0 ,required : true},
+      catches: { type: Number, default: 0 ,required : false},
+      runout: { type: Number, default: 0 ,required : false},
+      stumping: { type: Number, default: 0 ,required : false},
+      assistedRunout: { type: Number, default: 0 ,required : false},
     },
   },
   "achievements": {
@@ -99,5 +109,3 @@ const cricketPlayerSchema = new mongoose.Schema({
 const CricketPlayer = mongoose.model('CricketPlayer', cricketPlayerSchema);
 
 module.exports = CricketPlayer;
-
-

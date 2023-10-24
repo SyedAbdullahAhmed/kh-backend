@@ -14,10 +14,12 @@ const signup = require('./routes/signup')
 const players = require('./routes/player')
 const otp = require('./routes/otp')
 const teams = require('./routes/teams')
+// const umpire = require('./routes/umpire')
 app.use(signup)
 app.use(players)
 app.use(otp)
 app.use(teams)
+// app.use(umpire)
 
 
 app.get('/', (req, res) => {
