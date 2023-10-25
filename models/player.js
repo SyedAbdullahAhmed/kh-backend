@@ -1,15 +1,21 @@
 const mongoose = require('mongoose');
 var validator = require("email-validator");
 
-const commonFields = (dataType,isRequired,isUnique) => ({
-     type: dataType,
-     required: isRequired,
-     unique: isUnique,
+const commonStringFields = (dataType, isRequired, isUnique) => ({
+  type: dataType,
+  required: isRequired,
+  unique: isUnique,
+  default: ""
+});
+const commonNumberFields = (dataType, isRequired) => ({
+  type: dataType,
+  required: isRequired,
+  default: 0
 });
 
 const cricketPlayerSchema = new mongoose.Schema({
   "personalInformation": {
-    fullName: commonFields(String,true,false),
+    fullName: commonStringFields(String, true, false),
     emailAddress: {
       type: String,
       required: true,
@@ -21,9 +27,9 @@ const cricketPlayerSchema = new mongoose.Schema({
         message: 'Invalid email address',
       },
     },
-    dateOfBirth: commonFields(Date,true,false),
-    profilePicture: commonFields(String,false,false),
-    bio: commonFields(String,false,false),
+    dateOfBirth: commonStringFields(Date, true, false),
+    profilePicture: commonStringFields(String, false, false),
+    bio: commonStringFields(String, false, false),
     phoneNumber: {
       type: String,
       required: true,
@@ -35,63 +41,64 @@ const cricketPlayerSchema = new mongoose.Schema({
         message: 'Phone number must be a 11-digit number without spaces or special characters.'
       }
     },
-    address: commonFields(String,false,false),
-    gender: commonFields(String,true,false),
-    town: commonFields(String,true,false),
-    city: commonFields(String,false,false),
-    country: commonFields(String,false,false)
+    address: commonStringFields(String, false, false),
+    gender: commonStringFields(String, true, false),
+    town: commonStringFields(String, true, false),
+    city: commonStringFields(String, false, false),
+    country: commonStringFields(String, false, false)
   },
   "cricketDetails": {
-    playingRole:commonFields(String,true,false),
-    battingStyle:commonFields(String,true,false),
-    bowlingStyle:commonFields(String,true,false),
+    playingRole: commonStringFields(String, true, false),
+    battingStyle: commonStringFields(String, true, false),
+    bowlingStyle: commonStringFields(String, true, false),
     cricketTeams: {
-     type: [String],
-     required: true,
+      type: [String],
+      required: true,
     },
   },
   "statistics": {
-    totalInnings: { type: Number, default: 0 ,required : false},
-    totalMatches: { type: Number, default: 0 ,required : false},
+    totalInnings: commonNumberFields(Number, false),
+    totalInnings: commonNumberFields(Number, false),
+    totalMatches: commonNumberFields(Number, false),
     matches: {
-      wons: { type: Number, default: 0 ,required : false},
-      lose: { type: Number, default: 0 ,required : false},
-      draws: { type: Number, default: 0 ,required : false},
+      wons: commonNumberFields(Number, false),
+      lose: commonNumberFields(Number, false),
+      draws: commonNumberFields(Number, false),
     },
     batting: {
-      innings : { type: Number, default: 0 ,required : false},
-      totalRunsScored: { type: Number, default: 0 ,required : false},
-      thirties: { type: Number, default: 0 ,required : false},
-      fifties: { type: Number, default: 0 ,required : false},
-      centuries: { type: Number, default: 0 ,required : false},
-      fours: { type: Number, default: 0 ,required : false},
-      sixes: { type: Number, default: 0 ,required : false},
-      battingAverage: { type: Number, default: 0 ,required : false},
-      bestBattingFigures: { type: Number, default: 0 ,required : false},
-      strikeRate: { type: Number, default: 0 ,required : false},
-      average: { type: Number, default: 0 ,required : false},
-      ducks: { type: Number, default: 0 ,required : false},
+      innings: commonNumberFields(Number, false),
+      totalRunsScored: commonNumberFields(Number, false),
+      thirties: commonNumberFields(Number, false),
+      fifties: commonNumberFields(Number, false),
+      centuries: commonNumberFields(Number, false),
+      fours: commonNumberFields(Number, false),
+      sixes: commonNumberFields(Number, false),
+      battingAverage: commonNumberFields(Number, false),
+      bestBattingFigures: commonNumberFields(Number, false),
+      strikeRate: commonNumberFields(Number, false),
+      average: commonNumberFields(Number, false),
+      ducks: commonNumberFields(Number, false),
     },
     bowling: {
-      innings : { type: Number, default: 0 ,required : true},
-      overs: { type: Number, default: 0 ,required : true},
-      wickets: { type: Number, default: 0 ,required : true},
-      wides: { type: Number, default: 0 ,required : true},
-      noballs: { type: Number, default: 0 ,required : true},
-      dotBalls: { type: Number, default: 0 ,required : true},
-      runs: { type: Number, default: 0 ,required : true},
-      maidenOvers: { type: Number, default: 0 ,required : true},
-      average: { type: Number, default: 0 },
-      economy: { type: Number, default: 0 ,required : true},
-      threeWicketsHauls: { type: Number, default: 0 ,required : true},
-      fiveWicketsHauls: { type: Number, default: 0 ,required : true},
-      bestFigures: { type: String, default: 0 ,required : true},
+      innings: commonNumberFields(Number, false),
+      overs: commonNumberFields(Number, false),
+      wickets: commonNumberFields(Number, false),
+      wides: commonNumberFields(Number, false),
+      noballs: commonNumberFields(Number, false),
+      dotBalls: commonNumberFields(Number, false),
+      runs: commonNumberFields(Number, false),
+      maidenOvers: commonNumberFields(Number, false),
+      average: commonNumberFields(Number, false),
+      economy: commonNumberFields(Number, false),
+      threeWicketsHauls: commonNumberFields(Number, false),
+      fiveWicketsHauls: commonNumberFields(Number, false),
+      bestFigures: { type: String, default: "", required: false },
     },
     fielding: {
-      catches: { type: Number, default: 0 ,required : false},
-      runout: { type: Number, default: 0 ,required : false},
-      stumping: { type: Number, default: 0 ,required : false},
-      assistedRunout: { type: Number, default: 0 ,required : false},
+      catches: commonNumberFields(Number, false),
+      runout: commonNumberFields(Number, false),
+      stumping: commonNumberFields(Number, false),
+      assistedRunout: commonNumberFields(Number, false),
     },
   },
   "achievements": {
@@ -100,8 +107,8 @@ const cricketPlayerSchema = new mongoose.Schema({
   },
   "timestamps": {
     updatedAt: {
-      type:Date,
-      default : Date.now
+      type: Date,
+      default: Date.now
     }
   },
 });

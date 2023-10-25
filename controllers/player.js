@@ -9,7 +9,7 @@ const getPlayersData = async(req,res)=>{
       res.send(result)
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
   }
 
@@ -20,12 +20,12 @@ const getPlayersDataByID = async(req,res)=>{
     try {
       const result = await CricketPlayer.findOne({_id})
       if(!result){
-          return res.status(404).send('CricketPlayer not found'); 
+          return res.status(404).send({message : 'CricketPlayer not found'}); 
       }
       res.send(result)
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
 }
 
@@ -37,12 +37,12 @@ const getPlayersDataByPhoneNumber = async(req,res)=>{
      try {
       const result = await CricketPlayer.findOne({ 'personalInformation.phoneNumber': phoneNumber });
       if(!result){
-          return res.status(404).send('CricketPlayer not found'); 
+          return res.status(404).send({message : 'CricketPlayer not found'}); 
       }
       res.send(result)
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
 }
 
@@ -59,7 +59,7 @@ const postPlayersData = async(req,res)=>{
          res.send({msg:"Save Document Successfully!"})
        } catch (error) {
          console.log(error);
-         res.status(500).send('Internal Server Error');
+         res.status(500).send({message : 'Internal Server Error'});
        }
    }
    
@@ -72,12 +72,12 @@ const updatePlayersDataByID = async (req, res) => {
     const result = await CricketPlayer.findOneAndUpdate({ _id }, { $set: body }, { new: true });
 
     if (!result) {
-      return res.status(404).send('CricketPlayer not found');
+      return res.status(404).send({message : 'CricketPlayer not found'});
     }
     res.send({ msg: "Updated Successfully!", updatedPlayer: result });
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send({message : 'Internal Server Error'});
   }
 };
 
@@ -87,12 +87,12 @@ const deletePlayersDataByID = async(req,res)=>{
     try {
       const result = await CricketPlayer.findOneAndDelete({_id})
       if(!result) {
-          return res.status(404).send('CricketPlayer not found'); 
+          return res.status(404).send({message : 'CricketPlayer not found'}); 
       }
       res.send({msg : "Deleted Successfully!"})
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
 }
 

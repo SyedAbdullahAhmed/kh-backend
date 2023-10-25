@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const CricketTeams = require('../models/teams')
-const CricketPlayers = require('../models/player')
 
 // GET TEAMS DATA
 const getTeamsData = async(req,res)=>{
@@ -10,7 +9,7 @@ const getTeamsData = async(req,res)=>{
       res.send(result)
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
   }
 
@@ -25,7 +24,7 @@ const getTeamsDataByID = async(req,res)=>{
       res.send(result)
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
 }
 
@@ -40,7 +39,7 @@ const postTeamsData = async(req,res)=>{
          res.send({msg:"Save Document Successfully!"})
        } catch (error) {
          console.log(error);
-         res.status(500).send('Internal Server Error');
+         res.status(500).send({message : 'Internal Server Error'});
        }
    }
 
@@ -83,10 +82,10 @@ const updateTeamsDataByID = async (req, res) => {
     if (!result) {
       return res.status(404).send({message : "Team does not found!"});
     }
-    res.send({ msg: "Updated Successfully!", updatedPlayer: result });
+    res.send({ msg: "Updated Successfully!", updatedTeam: result });
   } catch (error) {
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send({message : 'Internal Server Error'});
   }
 };
 
@@ -101,7 +100,7 @@ const deleteTeamsDataByID = async(req,res)=>{
       res.send({msg : "Deleted Successfully!"})
     } catch (error) {
       console.log(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({message : 'Internal Server Error'});
     }
 }
 

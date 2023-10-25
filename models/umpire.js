@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+var validator = require("email-validator");
 
 const commonFields = (dataType, isRequired, isUnique) => ({
      type: dataType,
      required: isRequired,
      unique: isUnique,
+     default : ""
 });
 
 const umpireSchema = new mongoose.Schema({
@@ -37,7 +39,7 @@ const umpireSchema = new mongoose.Schema({
      certifications: [String],
      umpire_category: commonFields(String,false,false),
      match_history: [],
-     ratings: commonFields(Number,false,false),
+     ratings: { type: Number, default: 0 ,required : false},
      umpire_bio: commonFields(String,false,false),
 });
 

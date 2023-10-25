@@ -1,31 +1,36 @@
 const mongoose = require('mongoose');
 
-const commonFields = (dataType, isRequired, isUnique) => ({
+const commonStringFields = (dataType, isRequired, isUnique) => ({
      type: dataType,
      required: isRequired,
      unique: isUnique,
 });
+const commonNumberFields = (dataType, isRequired) => ({
+     type: dataType,
+     required: isRequired,
+     default: 0
+});
 
 const cricketTeamSchema = new mongoose.Schema({
      "teamInformation": {
-          name: commonFields(String, true, true),
-          abbreviation: commonFields(String, true, true),
-          logo: commonFields(String, true, true),
-          captain: commonFields(String, true, false),
-          description: commonFields(String, true, false),
+          name: commonStringFields(String, true, true),
+          abbreviation: commonStringFields(String, true, true),
+          logo: commonStringFields(String, true, true),
+          captain: commonStringFields(String, true, false),
+          description: commonStringFields(String, true, false),
           achievements: [String],
           players: [mongoose.Schema.Types.Mixed]
      },
      "teamStatistics": {
-          totalMatchesPlayed: { type: Number, default: 0, required: true },
-          totalWins: { type: Number, default: 0, required: true },
-          totalLosses: { type: Number, default: 0, required: true },
-          totalDraws: { type: Number, default: 0, required: true },
-          winningPercentage: { type: Number, default: 0, required: true },
-          mostRunsScored: { type: Number, default: 0, required: true },
-          mostWicketsTaken: { type: Number, default: 0, required: true },
-          highestTeamScore: { type: Number, default: 0, required: true },
-          lowestTeamScore: { type: Number, default: 0, required: true }
+          totalMatchesPlayed: commonNumberFields(Number, false),
+          totalWins: commonNumberFields(Number, false),
+          totalLosses: commonNumberFields(Number, false),
+          totalDraws: commonNumberFields(Number, false),
+          winningPercentage: commonNumberFields(Number, false),
+          mostRunsScored: commonNumberFields(Number, false),
+          mostWicketsTaken: commonNumberFields(Number, false),
+          highestTeamScore: commonNumberFields(Number, false),
+          lowestTeamScore: commonNumberFields(Number, false)
      }
 
 });
