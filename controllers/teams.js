@@ -46,11 +46,14 @@ const postTeamsData = async(req,res)=>{
 // ADD PLAYER IN A TEAM BY ID
 const addPlayerInTeamByID = async(req,res)=>{
      try{
-          const playerID = req.body.id;
+          const playerID = req.params.playerId;
           const data = await fetch(`http://localhost:5000/players/${playerID}`);
           const playerData = await data.json()
           
-          let _id = req.params.id;
+          const p_id = playerData._id
+          console.log(p_id)
+          
+          const _id = req.params.teamId;
           const result = await CricketTeams.findOne({_id})
           
           if(!result) {
@@ -60,8 +63,7 @@ const addPlayerInTeamByID = async(req,res)=>{
           if(result.teamInformation.players.length >12) {
                return res.status(404).send({message : "Team has maximum 11 players!"}); 
           }
-
-          result.teamInformation.players.push({playerData})
+          result.teamInformation.players.push({p_id})
           await result.save();
           res.send({result});
 

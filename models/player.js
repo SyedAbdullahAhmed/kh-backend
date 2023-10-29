@@ -7,11 +7,14 @@ const commonStringFields = (dataType, isRequired, isUnique) => ({
   unique: isUnique,
   default: ""
 });
-const commonNumberFields = (dataType, isRequired) => ({
+const commonNumberFields = (dataType, isRequired, isUnique) => ({
   type: dataType,
   required: isRequired,
   default: 0
 });
+
+
+
 
 const cricketPlayerSchema = new mongoose.Schema({
   "personalInformation": {
@@ -53,7 +56,7 @@ const cricketPlayerSchema = new mongoose.Schema({
     bowlingStyle: commonStringFields(String, true, false),
     cricketTeams: {
       type: [String],
-      required: true,
+      required: false,
     },
   },
   "statistics": {
@@ -73,7 +76,6 @@ const cricketPlayerSchema = new mongoose.Schema({
       centuries: commonNumberFields(Number, false),
       fours: commonNumberFields(Number, false),
       sixes: commonNumberFields(Number, false),
-      battingAverage: commonNumberFields(Number, false),
       bestBattingFigures: commonNumberFields(Number, false),
       strikeRate: commonNumberFields(Number, false),
       average: commonNumberFields(Number, false),
@@ -98,7 +100,6 @@ const cricketPlayerSchema = new mongoose.Schema({
       catches: commonNumberFields(Number, false),
       runout: commonNumberFields(Number, false),
       stumping: commonNumberFields(Number, false),
-      assistedRunout: commonNumberFields(Number, false),
     },
   },
   "achievements": {

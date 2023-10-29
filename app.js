@@ -16,12 +16,16 @@ const otp = require('./routes/otp')
 const teams = require('./routes/teams')
 const umpire = require('./routes/umpire')
 const match = require('./routes/match')
+const creatematch = require('./routes/creatematch')
+const scoreboard = require('./routes/scoreboard')
 app.use(signup)
 app.use(players)
 app.use(otp)
 app.use(teams)
 app.use(umpire)
 app.use(match)
+app.use(creatematch) 
+app.use(scoreboard) 
 
 
 app.get('/', (req, res) => {
@@ -32,55 +36,534 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}...`)
 })
 
-// `{
-//   "team1": "Team A",
-//   "team2": "Team B",
-//   "date": "2023-10-20",
-//   "venue": "Stadium XYZ",
-//   "result": "Team A won by 50 runs",
-//   "playerOfTheMatch": "Player X",
-//   "innings": [
-//     {
-//       "team": "Team A",
-//       "score": {
-//         "overs": 50,
-//         "wickets": 5,
-//         "total": 300
-//       },
-//       "players": [
-//         {
-//           "name": "Player A",
-//           "runs": 100,
-//           "balls": 89,
-//           "strikeRate": 90,
-//           "sixes": 5,
-//           "fours": 8,
-//           "1s": 22,
-//           "2s": 28,
-//           "3s": 8
+// `
+// {
+//   "team1": {
+//     "id": "team1",
+//     "teamName": "Team A",
+//      "totalRuns": 0,
+//     "totalWicketsLose": 0,
+//     "totalOvers": 0,
+//     "extras": 0,
+//     "players": [
+//       {
+//         "id": "player1",
+//         "playerName": "Player A1",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
 //         }
-//       ]
-//     }
-//     {
-//       "team": "Team B",
-//       "score": {
-//         "overs": 50,
-//         "wickets": 5,
-//         "total": 300
 //       },
-//       "players": [
-//         {
-//           "name": "Player A",
-//           "runs": 100,
-//           "balls": 89,
-//           "strikeRate": 90,
-//           "sixes": 5,
-//           "fours": 8,
-//           "1s": 22,
-//           "2s": 28,
-//           "3s": 8
+//       {
+//         "id": "player2",
+//         "playerName": "Player A2",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
 //         }
-//       ]
-//     }
-//   ]
-// }`
+//       },
+//       {
+//         "id": "player3",
+//         "playerName": "Player A3",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player4",
+//         "playerName": "Player A4",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player5",
+//         "playerName": "Player A5",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player6",
+//         "playerName": "Player A6",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player7",
+//         "playerName": "Player A7",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player8",
+//         "playerName": "Player A8",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player9",
+//         "playerName": "Player A9",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player10",
+//         "playerName": "Player A10",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player11",
+//         "playerName": "Player A11",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       }
+//     ]
+//   },
+//   "team2": {
+//     "id": "team2",
+//     "teamName": "Team B",
+//      "totalRuns": 0,
+//     "totalWicketsLose": 0,
+//     "totalOvers": 0,
+//     "extras": 0,
+//     "players": [
+//       {
+//         "id": "player1",
+//         "playerName": "Player B1",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player2",
+//         "playerName": "Player B2",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player3",
+//         "playerName": "Player B3",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player4",
+//         "playerName": "Player B4",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player5",
+//         "playerName": "Player B5",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player6",
+//         "playerName": "Player B6",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player7",
+//         "playerName": "Player B7",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player8",
+//         "playerName": "Player B8",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//  	 "id": "player9",
+//  	 "playerName": "Player B9",
+//  	 "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }// }
+// ,
+// 	 {
+//         "id": "player10",
+//         "playerName": "Player B10",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       },
+//       {
+//         "id": "player11",
+//         "playerName": "Player B11",
+//         "batting": {
+//           "runs": 0,
+//           "balls": 0,
+//           "sixes": 0,
+//           "fours": 0,
+//           "strikeRate": 0
+//         },
+//         "bowling": {
+//           "runs": 0,
+//           "totalOver": 0,
+//           "maidens": 0,
+//           "wickets": 0,
+//           "economy": 0
+//         },
+//         "fielding": {
+//           "catches": 0,
+//           "runouts": 0,
+//           "stumps": 0
+//         }
+//       }
+//     ]
+//   }
+// }
+
+// `

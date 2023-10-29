@@ -10,7 +10,7 @@ router.get('/teams',getTeamsData)
 router.get('/teams/:id',getTeamsDataByID)
 
 // add player in team by id
-router.post('/teams/players/:id',addPlayerInTeamByID)
+router.post('/teams/:teamId/players/:playerId', addPlayerInTeamByID);
 
 // post teams
 router.post('/teams',postTeamsData)
