@@ -28,6 +28,57 @@ const getTeamsDataByID = async(req,res)=>{
     }
 }
 
+// GET TEAM STATISTICS DATA BY ID
+const getTeamStatisticsDataByID = async(req,res)=>{
+     let _id = req.params.id;
+    try {
+      const result = await CricketTeams.findOne({_id})
+      if(!result){
+          return res.status(404).send({message : "Team does not found!"}); 
+      }
+      const statistics = result.teamStatistics
+      res.send(statistics)
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({message : 'Internal Server Error'});
+    }
+}
+
+// GET TEAM INFORMATION DATA BY ID
+const getTeamInformationDataByID = async(req,res)=>{
+     let _id = req.params.id;
+    try {
+      const result = await CricketTeams.findOne({_id})
+      if(!result){
+          return res.status(404).send({message : "Team does not found!"}); 
+      }
+      const information = result.teamInformation
+      res.send(information)
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({message : 'Internal Server Error'});
+    }
+}
+
+// GET TEAM PLAYERS INFORMATION DATA BY ID
+const getTeamPlayersDataByID = async(req,res)=>{
+     let _id = req.params.id;
+    try {
+      const result = await CricketTeams.findOne({_id})
+      if(!result){
+          return res.status(404).send({message : "Team does not found!"}); 
+      }
+      const players = result.teamInformation.players
+      res.send(players)  
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({message : 'Internal Server Error'});
+    }
+}
+
 //POST TEAMS
 const postTeamsData = async(req,res)=>{
        let body = req.body
@@ -46,13 +97,15 @@ const postTeamsData = async(req,res)=>{
 // ADD PLAYER IN A TEAM BY ID
 const addPlayerInTeamByID = async(req,res)=>{
      try{
+        // find player 
           const playerID = req.params.playerId;
           const data = await fetch(`http://localhost:5000/players/${playerID}`);
           const playerData = await data.json()
           
           const p_id = playerData._id
-          console.log(p_id)
+          const p_name = playerData.personalInformation.fullName
           
+          //find team
           const _id = req.params.teamId;
           const result = await CricketTeams.findOne({_id})
           
@@ -63,9 +116,44 @@ const addPlayerInTeamByID = async(req,res)=>{
           if(result.teamInformation.players.length >12) {
                return res.status(404).send({message : "Team has maximum 11 players!"}); 
           }
-          result.teamInformation.players.push({p_id})
+
+          //push data in team
+          result.teamInformation.players.push({p_id,p_name})
           await result.save();
           res.send({result});
+          
+
+     }
+     catch(e) {
+          console.log(e);
+     }
+   }
+
+// REMOVE PLAYER IN A TEAM BY ID
+const removePlayerInTeamByID = async(req,res)=>{
+     try{
+        // find player 
+          const playerID = req.params.playerId;
+   
+          //find team
+          const _id = req.params.teamId;
+          const result = await CricketTeams.findOne({_id})
+          
+          if(!result) {
+              return res.status(404).send({message : "Team does not found!"}); 
+          }
+
+          //remove data in team
+          const players = result.teamInformation.players
+
+          // filter data from array
+          const filteredPlayers = players.filter((item) => item.p_id !== playerID);
+          result.teamInformation.players = filteredPlayers
+ 
+          // save in database
+          await result.save();
+          res.send({result});
+          
 
      }
      catch(e) {
@@ -106,4 +194,4 @@ const deleteTeamsDataByID = async(req,res)=>{
     }
 }
 
-module.exports = {addPlayerInTeamByID,getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID};
+module.exports = {removePlayerInTeamByID,getTeamPlayersDataByID,getTeamInformationDataByID,getTeamStatisticsDataByID,addPlayerInTeamByID,getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID};
