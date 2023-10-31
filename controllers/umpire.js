@@ -38,7 +38,7 @@ const postUmpiresData = async(req,res)=>{
        try {
          const result = await doc.save();
          console.log(result);
-         res.send({msg:"Save Document Successfully!"})
+         res.send({msg:"Save Document Successfully!" , document : result})
        } catch (error) {
          console.log(error);
          res.status(500).send({message:'Internal Server Error'});
@@ -78,4 +78,79 @@ const deleteUmpiresDataByID = async(req,res)=>{
     }
 }
 
-module.exports = {getUmpiresData,getUmpiresDataByID,postUmpiresData,updateUmpiresDataByID,deleteUmpiresDataByID};
+// GET UMPIRES PERONSAL INFORMATION BY ID
+const getUmpiresPersonalInformationDataByID = async (req, res) => {
+  // const _id = req.params.id;
+  // const body = req.body;
+
+  // try {
+
+  //   // empty object
+  //   let updatedData = {};
+
+  //   //push body data in object
+  //   for (const field in body) {
+  //     updatedData[`personalInformation.${field}`] = body[field];
+  //   }
+
+  //   // update data using object
+  //   const result = await Umpire.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+  //   // empty due to other requests data
+  //   updatedData = {}
+
+  //   if (!result) {
+  //     return res.status(404).send({message : 'Umpire not found'});
+  //   }
+  //   res.send({ msg: "Updated Successfully!", updatedPlayer: result.personalInformation });
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).send({ message: 'Internal Server Error' });
+  // }
+  //id from parameter
+  let _id = req.params.id;
+  try {
+    const result = await Umpire.findOne({_id})
+    if(!result){
+        return res.status(404).send({message:'Umpire not found'}); 
+    }
+    res.send(result.personal_information)
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({message:'Internal Server Error'});
+  }
+};
+
+// UPDATE UMPIRES PERONSAL INFORMATION BY ID
+const updateUmpiresPersonalInformationDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`personal_information.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await Umpire.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'Umpire not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.personal_information });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+
+};
+
+module.exports = {updateUmpiresPersonalInformationDataByID,getUmpiresPersonalInformationDataByID,getUmpiresData,getUmpiresDataByID,postUmpiresData,updateUmpiresDataByID,deleteUmpiresDataByID};

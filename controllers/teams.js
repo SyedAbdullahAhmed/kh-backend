@@ -95,7 +95,7 @@ const postTeamsData = async(req,res)=>{
    }
 
 // ADD PLAYER IN A TEAM BY ID
-const addPlayerInTeamByID = async(req,res)=>{
+const  addPlayerInTeamByID = async(req,res)=>{
      try{
         // find player 
           const playerID = req.params.playerId;
@@ -120,7 +120,7 @@ const addPlayerInTeamByID = async(req,res)=>{
           //push data in team
           result.teamInformation.players.push({p_id,p_name})
           await result.save();
-          res.send({result});
+          res.send({updated : result.teamInformation.players});
           
 
      }
@@ -153,7 +153,6 @@ const removePlayerInTeamByID = async(req,res)=>{
           // save in database
           await result.save();
           res.send({result});
-          
 
      }
      catch(e) {
@@ -194,4 +193,68 @@ const deleteTeamsDataByID = async(req,res)=>{
     }
 }
 
-module.exports = {removePlayerInTeamByID,getTeamPlayersDataByID,getTeamInformationDataByID,getTeamStatisticsDataByID,addPlayerInTeamByID,getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID};
+// UPDATE TEAM STATISTICS DATA BY ID
+const updateTeamStatisticsDataByID = async(req,res)=>{
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`teamStatistics.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketTeams.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketTeams not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.teamStatistics });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+}
+
+// UPDATE TEAM INFORMATION DATA BY ID
+const updateTeamInformationDataByID = async(req,res)=>{
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`teamInformation.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketTeams.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketTeams not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.teamInformation });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+}
+
+
+
+module.exports = {removePlayerInTeamByID,getTeamPlayersDataByID,getTeamInformationDataByID,getTeamStatisticsDataByID,addPlayerInTeamByID,getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID,updateTeamStatisticsDataByID,updateTeamInformationDataByID};

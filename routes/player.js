@@ -1,5 +1,5 @@
 const express = require('express');
-const {getPlayersDataByPhoneNumber,getPlayersData,getPlayersDataByID,postPlayersData,updatePlayersDataByID,deletePlayersDataByID,getPlayersPersonalInformationDataByID,getPlayersCricketDetailsDataByID,getPlayersStatisticsDataByID,getPlayersMatchesDataByID,getPlayersBowlingDataByID,getPlayersBattingDataByID,getPlayersFieldingDataByID,updatePlayersPersonalInformationDataByID
+const {updatePlayersCricketDetailsDataByID,getPlayersDataByPhoneNumber,getPlayersData,getPlayersDataByID,postPlayersData,updatePlayersDataByID,deletePlayersDataByID,getPlayersPersonalInformationDataByID,getPlayersCricketDetailsDataByID,getPlayersStatisticsDataByID,getPlayersMatchesDataByID,getPlayersBowlingDataByID,getPlayersBattingDataByID,getPlayersFieldingDataByID,updatePlayersPersonalInformationDataByID,updatePlayersStatisticsDataByID,updatePlayersMatchesDataByID,updatePlayersBowlingDataByID,updatePlayersBattingDataByID,updatePlayersFieldingDataByID
 } = require('../controllers/player')
 
 const router = express.Router();
@@ -47,22 +47,22 @@ router.get('/players/phoneNumber/:phoneNumber',getPlayersDataByPhoneNumber)
 router.put('/players/:id/personalInformation',updatePlayersPersonalInformationDataByID)
 
 // // get players cricketDetails data by id
-// router.put('/players/:id/cricketDetails',updatePlayersCricketDetailsDataByID)
+router.put('/players/:id/cricketDetails',updatePlayersCricketDetailsDataByID)
 
 // // get players statistics data by id
-// router.put('/players/:id/statistics',updatePlayersStatisticsDataByID)
+router.put('/players/:id/statistics',updatePlayersStatisticsDataByID)
 
 // // get players matches data by id
-// router.put('/players/:id/matches',updatePlayersMatchesDataByID)
+router.put('/players/:id/matches',updatePlayersMatchesDataByID)
 
 // // get players bowling data by id
-// router.put('/players/:id/bowling',updatePlayersBowlingDataByID)
+router.put('/players/:id/bowling',updatePlayersBowlingDataByID)
 
 // // get players batting data by id
-// router.put('/players/:id/batting',updatePlayersBattingDataByID)
+router.put('/players/:id/batting',updatePlayersBattingDataByID)
 
 // // get players fielding data by id
-// router.put('/players/:id/fielding',updatePlayersFieldingDataByID)
+router.put('/players/:id/fielding',updatePlayersFieldingDataByID)
 
 // update players data
 router.put('/players/:id',updatePlayersDataByID)

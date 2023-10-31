@@ -158,8 +158,6 @@ const getPlayersDataByPhoneNumber = async (req, res) => {
   }
 }
 
-
-
 //POST DATA
 const postPlayersData = async (req, res) => {
   let body = req.body
@@ -194,7 +192,7 @@ const updatePlayersDataByID = async (req, res) => {
 };
 
 
-// UPDATE DATA BY ID
+// UPDATE PERSONAL INFORMATION DATA BY ID
 const updatePlayersPersonalInformationDataByID = async (req, res) => {
   const _id = req.params.id;
   const body = req.body;
@@ -212,18 +210,210 @@ const updatePlayersPersonalInformationDataByID = async (req, res) => {
     // update data using object
     const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
 
-    // empty due to other requests data0
+    // empty due to other requests data
     updatedData = {}
 
     if (!result) {
       return res.status(404).send({message : 'CricketPlayer not found'});
     }
-    res.send({ msg: "Updated Successfully!", updatedPlayer: result });
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.personalInformation });
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: 'Internal Server Error' });
   }
 };
+
+// UPDATE CRICKET DETAILS DATA BY ID
+const updatePlayersCricketDetailsDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`cricketDetails.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketPlayer not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.cricketDetails });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
+// UPDATE STATISTICS DATA BY ID
+const updatePlayersStatisticsDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`statistics.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketPlayer not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.statistics });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
+// UPDATE MATCHES DATA BY ID
+const updatePlayersMatchesDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`statistics.matches.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketPlayer not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.statistics.matches });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
+// UPDATE BOWLING DATA BY ID
+const updatePlayersBowlingDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`statistics.bowling.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketPlayer not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.statistics.bowling });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
+// UPDATE BATTING DATA BY ID
+const updatePlayersBattingDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`statistics.batting.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketPlayer not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.statistics.batting });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
+// UPDATE FIELDING DATA BY ID
+const updatePlayersFieldingDataByID = async (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+
+  try {
+
+    // empty object
+    let updatedData = {};
+
+    //push body data in object
+    for (const field in body) {
+      updatedData[`statistics.fielding.${field}`] = body[field];
+    }
+
+    // update data using object
+    const result = await CricketPlayer.findOneAndUpdate({ _id }, {$set: updatedData}, { new: true });
+
+    // empty due to other requests data
+    updatedData = {}
+
+    if (!result) {
+      return res.status(404).send({message : 'CricketPlayer not found'});
+    }
+    res.send({ msg: "Updated Successfully!", updatedPlayer: result.statistics.fielding });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
 
 // DELETE DATA BY ID
 const deletePlayersDataByID = async (req, res) => {
@@ -240,4 +430,9 @@ const deletePlayersDataByID = async (req, res) => {
   }
 }
 
-module.exports = { getPlayersDataByPhoneNumber, getPlayersData, getPlayersDataByID, postPlayersData, updatePlayersDataByID, deletePlayersDataByID, getPlayersPersonalInformationDataByID, getPlayersCricketDetailsDataByID, getPlayersStatisticsDataByID, getPlayersMatchesDataByID, getPlayersBowlingDataByID, getPlayersBattingDataByID, getPlayersFieldingDataByID, updatePlayersPersonalInformationDataByID };
+module.exports = { updatePlayersCricketDetailsDataByID,getPlayersDataByPhoneNumber, getPlayersData, getPlayersDataByID, postPlayersData, updatePlayersDataByID, deletePlayersDataByID, getPlayersPersonalInformationDataByID, getPlayersCricketDetailsDataByID, getPlayersStatisticsDataByID, getPlayersMatchesDataByID, getPlayersBowlingDataByID, getPlayersBattingDataByID, getPlayersFieldingDataByID, updatePlayersPersonalInformationDataByID,updatePlayersStatisticsDataByID,
+updatePlayersMatchesDataByID,
+updatePlayersBowlingDataByID,
+updatePlayersBattingDataByID,
+updatePlayersFieldingDataByID 
+};

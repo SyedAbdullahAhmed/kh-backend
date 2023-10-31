@@ -13,30 +13,32 @@ const commonNumberFields = (isRequired) => ({
 });
 
 const matchSchema = new mongoose.Schema({
-  date: commonStringFields(true, false),
-  time: commonStringFields(true, false),
-  venue: commonStringFields(true, false),
-  matchStatus: {type : String, default : 'Scheduled', required : true},
-  scoreboardID: commonStringFields(false, false),
-  umpires: [String],
-  teams: [
-    {
-      teamID: commonStringFields(true, false),
-      teamName: commonStringFields(true, false),
-      isWin: {type : String, default : '',required : false ,unique : false},
-      totalRuns: commonNumberFields(true),
-      totalOversPlayed: commonNumberFields(true),
-      totalWicketsLose: commonNumberFields(true),
+  matchInformation : {
+    date: commonStringFields(true, false),
+    time: commonStringFields(true, false),
+    venue: commonStringFields(true, false),
+    matchStatus: {type : String, default : 'Scheduled', required : true},
+    scoreboardID: commonStringFields(false, false)
+  },
+  umpires: [mongoose.Schema.Types.Mixed],
+  teams: {
+    team1 : {
+        teamID: commonStringFields(true, true),
+        teamName: commonStringFields(true, false),
+        isWin: {type : String, default : '',required : false ,unique : false},
+        totalRuns: commonNumberFields(true),
+        totalOversPlayed: commonNumberFields(true),
+        totalWicketsLose: commonNumberFields(true),
     },
-    {
-      teamID: commonStringFields(true, false),
-      teamName: commonStringFields(true, false),
-      isWin: {type : String,default : '',required : false ,unique : false},
-      totalRuns: commonNumberFields(true),
-      totalOversPlayed: commonNumberFields(true),
-      totalWicketsLose: commonNumberFields(true),
-    },
-  ],
+    team2 : {
+        teamID: commonStringFields(true, true),
+        teamName: commonStringFields(true, false),
+        isWin: {type : String,default : '',required : false ,unique : false},
+        totalRuns: commonNumberFields(true),
+        totalOversPlayed: commonNumberFields(true),
+        totalWicketsLose: commonNumberFields(true),
+    }
+  }
 });
 
 const Match = mongoose.model('CreateMatch', matchSchema);

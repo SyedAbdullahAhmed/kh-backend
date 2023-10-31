@@ -9,8 +9,8 @@ const commonFields = (dataType, isRequired, isUnique) => ({
 });
 
 const umpireSchema = new mongoose.Schema({
-     umpire_name: commonFields(String,true,true),
-     contact_information: {
+     personal_information: {
+          umpire_name: commonFields(String,true,true),
           emailAddress: {
                type: String,
                required: true,
@@ -33,14 +33,13 @@ const umpireSchema = new mongoose.Schema({
                  message: 'Phone number must be a 11-digit number without spaces or special characters.'
                }
           },
-          town: commonFields(String,false,false)
+          town: commonFields(String,false,false),
+          umpire_photo: commonFields(String,false,false),
+          umpire_category: commonFields(String,false,false),
+          ratings: { type: Number, default: 0 ,required : false},
+          umpire_bio: commonFields(String,false,false),
      },
-     umpire_photo: commonFields(String,false,false),
-     certifications: [String],
-     umpire_category: commonFields(String,false,false),
-     match_history: [],
-     ratings: { type: Number, default: 0 ,required : false},
-     umpire_bio: commonFields(String,false,false),
+     match_history: []
 });
 
 const Umpire = mongoose.model('Umpire', umpireSchema);
