@@ -10,7 +10,7 @@ const commonFields = (dataType, isRequired, isUnique) => ({
 
 const umpireSchema = new mongoose.Schema({
      personal_information: {
-          umpire_name: commonFields(String,true,true),
+          umpire_name: commonFields(String,true,false),
           emailAddress: {
                type: String,
                required: true,

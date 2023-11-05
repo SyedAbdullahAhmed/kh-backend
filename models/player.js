@@ -47,7 +47,10 @@ const cricketPlayerSchema = new mongoose.Schema({
     address: commonStringFields(String, false, false),
     gender: commonStringFields(String, true, false),
     town: commonStringFields(String, true, false),
-    city: commonStringFields(String, false, false),
+    city: {type: String,
+    required: false,
+    unique: false,
+    default: "Karachi"},
     country: commonStringFields(String, false, false)
   },
   "cricketDetails": {
@@ -55,7 +58,7 @@ const cricketPlayerSchema = new mongoose.Schema({
     battingStyle: commonStringFields(String, true, false),
     bowlingStyle: commonStringFields(String, true, false),
     cricketTeams: {
-      type: [String],
+      type: [mongoose.Schema.Types.Mixed],
       required: false,
     },
   },

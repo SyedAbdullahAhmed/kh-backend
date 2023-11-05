@@ -2,7 +2,6 @@ const express = require('express');
 const { createServer } = require('http'); 
 const { join } = require('path'); 
 const { Server } = require('socket.io');
-// const redis = require('redis');
 const client = require('./client');
 
 const app = express();

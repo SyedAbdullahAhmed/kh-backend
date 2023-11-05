@@ -1,5 +1,5 @@
 const express = require('express');
-const {removePlayerInTeamByID,getTeamPlayersDataByID,getTeamInformationDataByID,getTeamStatisticsDataByID,getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID,addPlayerInTeamByID,updateTeamStatisticsDataByID,updateTeamInformationDataByID} = require('../controllers/teams')
+const {removePlayerInTeamByID,getTeamPlayersDataByID,getTeamInformationDataByID,getTeamStatisticsDataByID,getTeamsData,getTeamsDataByID,postTeamsData,updateTeamsDataByID,deleteTeamsDataByID,addPlayerInTeamByID,updateTeamStatisticsDataByID,updateTeamInformationDataByID,getTeamsMatchHistoryDataByID,postTeamsMatchHistoryDataByID,deleteTeamsMatchHistoryDataByID} = require('../controllers/teams')
 
 const router = express.Router();
 
@@ -23,6 +23,9 @@ router.get('/teams/:id/teamInformation',getTeamInformationDataByID)
 // get team information data by id
 router.get('/teams/:id/players',getTeamPlayersDataByID)
 
+// get team information data by id
+router.get('/teams/:id/matchHistory',getTeamsMatchHistoryDataByID)
+
 /**
  * POST METHODS
  */
@@ -32,6 +35,9 @@ router.post('/teams/:teamId/players/:playerId', addPlayerInTeamByID);
 
 // post teams
 router.post('/teams',postTeamsData)
+
+// post team match history data by id
+router.post('/teams/:teamId/matchHistory/:matchId',postTeamsMatchHistoryDataByID)
 
 /**
  * PUT METHODS
@@ -56,5 +62,10 @@ router.delete('/teams/:teamId/players/:playerId', removePlayerInTeamByID);
 // delete team
 router.delete('/teams/:id',deleteTeamsDataByID)
 
+// delete team match history data by id
+router.delete('/teams/:teamId/matchHistory/:matchId',deleteTeamsMatchHistoryDataByID)
+
 module.exports = router;
+
+
 

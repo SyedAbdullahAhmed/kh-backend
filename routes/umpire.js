@@ -1,5 +1,5 @@
 const express = require('express');
-const {updateUmpiresPersonalInformationDataByID,getUmpiresData,getUmpiresPersonalInformationDataByID,getUmpiresDataByID,postUmpiresData,updateUmpiresDataByID,deleteUmpiresDataByID} = require('../controllers/umpire')
+const {updateUmpiresPersonalInformationDataByID,getUmpiresData,getUmpiresPersonalInformationDataByID,getUmpiresDataByID,postUmpiresData,updateUmpiresDataByID,deleteUmpiresDataByID,getUmpiresMatchHistoryDataByID,postUmpiresMatchHistoryDataByID,deleteUmpiresMatchHistoryDataByID} = require('../controllers/umpire')
 
 const router = express.Router();
 
@@ -14,6 +14,9 @@ router.get('/umpires',getUmpiresData)
 // get umpires data by id
 router.get('/umpires/:id',getUmpiresDataByID)
 
+// get umpires match history data by id
+router.get('/umpires/:id/matchHistory',getUmpiresMatchHistoryDataByID)
+
 // get umpires personal information data by id
 router.get('/umpires/:id/personalInformation',getUmpiresPersonalInformationDataByID)
 
@@ -23,6 +26,9 @@ router.get('/umpires/:id/personalInformation',getUmpiresPersonalInformationDataB
 
 // post umpires data
 router.post('/umpires',postUmpiresData)
+
+// postumpires match history data by id
+router.post('/umpires/:umpireId/matchHistory/:matchId',postUmpiresMatchHistoryDataByID)
 
 /**
  * PUT REQUEST
@@ -41,4 +47,9 @@ router.put('/umpires/:id/personalInformation',updateUmpiresPersonalInformationDa
 // delete umpires data
 router.delete('/umpires/:id',deleteUmpiresDataByID)
 
+// delete umpires match history data by id
+router.delete('/umpires/:umpireId/matchHistory/:matchId',deleteUmpiresMatchHistoryDataByID)
+
 module.exports = router;
+
+ 

@@ -31,7 +31,8 @@ const cricketTeamSchema = new mongoose.Schema({
           mostWicketsTaken: commonNumberFields(Number, false),
           highestTeamScore: commonNumberFields(Number, false),
           lowestTeamScore: commonNumberFields(Number, false)
-     }
+     },
+     "matchHistory" : [mongoose.Schema.Types.Mixed]
 
 });
 

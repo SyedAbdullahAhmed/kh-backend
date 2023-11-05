@@ -21,16 +21,16 @@ const matchSchema = new mongoose.Schema({
     scoreboardID: commonStringFields(false, false)
   },
   umpires: [mongoose.Schema.Types.Mixed],
-  teams: {
-    team1 : {
+  teams: [
+    {
         teamID: commonStringFields(true, true),
         teamName: commonStringFields(true, false),
-        isWin: {type : String, default : '',required : false ,unique : false},
+        isWin: {type : String,required : false ,unique : false, default : ''},
         totalRuns: commonNumberFields(true),
         totalOversPlayed: commonNumberFields(true),
         totalWicketsLose: commonNumberFields(true),
     },
-    team2 : {
+    {
         teamID: commonStringFields(true, true),
         teamName: commonStringFields(true, false),
         isWin: {type : String,default : '',required : false ,unique : false},
@@ -38,7 +38,7 @@ const matchSchema = new mongoose.Schema({
         totalOversPlayed: commonNumberFields(true),
         totalWicketsLose: commonNumberFields(true),
     }
-  }
+  ]
 });
 
 const Match = mongoose.model('CreateMatch', matchSchema);

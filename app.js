@@ -5,7 +5,6 @@ const port = 5000
 app.use(cors())
 
 //connection function
-require('./redis/data')
 require('./connection/conn')
 
 //convert data to json

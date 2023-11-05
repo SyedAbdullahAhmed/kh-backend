@@ -1,5 +1,5 @@
 const express = require('express');
-const {deleteUmipreByID,updateMatchesTeam2DataByID,updateMatchesInformationDataByID,updateMatchesTeam1DataByID,updateMatchesUmpiresDataByID,getMatchesInformationDataByID,getMatchesTeamsDataByID,getMatchesUmpiresDataByID,postUmipreFromID,postTeamFromID,postMatchData,getMatchesData,getMatchesDataByID,updateMatchesDataByID,deleteMatchesDataByID} = require('../controllers/creatematch')
+const {deleteUmipreByID,updateMatchesTeamDataByID,updateMatchesInformationDataByID,updateMatchesUmpiresDataByID,getMatchesInformationDataByID,getMatchesTeamsDataByID,getMatchesUmpiresDataByID,postUmipreFromID,postTeamFromID,postMatchData,getMatchesData,getMatchesDataByID,updateMatchesDataByID,deleteMatchesDataByID} = require('../controllers/creatematch')
 
 const router = express.Router();
 
@@ -46,10 +46,7 @@ router.put('/matches/:id',updateMatchesDataByID)
 router.put('/matches/:id/matchInformation',updateMatchesInformationDataByID)
 
 // update match teams data by id
-router.put('/matches/:id/team1',updateMatchesTeam1DataByID)
-
-// update match teams data by id
-router.put('/matches/:id/team2',updateMatchesTeam2DataByID)
+router.put('/matches/:matchId/team/:teamId',updateMatchesTeamDataByID)
 
 // update match umpire data by id
 router.put('/matches/:id/umpires',updateMatchesUmpiresDataByID)
